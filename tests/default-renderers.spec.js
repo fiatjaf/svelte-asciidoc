@@ -1,11 +1,11 @@
 import '@testing-library/jest-dom/extend-expect'
-import { describe, test, expect } from 'vitest'
-import { render, screen } from '@testing-library/svelte'
-import SvelteMarkdown from '../src/SvelteMarkdown.svelte'
+import {describe, test, expect} from 'vitest'
+import {render, screen} from '@testing-library/svelte'
+import SvelteAsciidoc from '../src/SvelteAsciidoc.svelte'
 
 describe('testing default renderers', () => {
   test('renders a paragraph', () => {
-    render(SvelteMarkdown, { source: 'Plain text' })
+    render(SvelteAsciidoc, {source: 'Plain text'})
 
     const element = screen.getByText('Plain text')
     expect(element).toBeInTheDocument()
@@ -13,7 +13,7 @@ describe('testing default renderers', () => {
   })
 
   test('renders emphasized paragraph', () => {
-    render(SvelteMarkdown, { source: '*Plain text*' })
+    render(SvelteAsciidoc, {source: '*Plain text*'})
 
     const element = screen.getByText('Plain text')
     expect(element).toBeInTheDocument()
@@ -21,7 +21,7 @@ describe('testing default renderers', () => {
   })
 
   test('renders strong paragraph', () => {
-    render(SvelteMarkdown, { source: '**Plain text**' })
+    render(SvelteAsciidoc, {source: '**Plain text**'})
 
     const element = screen.getByText('Plain text')
     expect(element).toBeInTheDocument()
@@ -29,13 +29,13 @@ describe('testing default renderers', () => {
   })
 
   test('renders a separator', () => {
-    render(SvelteMarkdown, { source: '---' })
+    render(SvelteAsciidoc, {source: '---'})
 
     expect(document.getElementsByTagName('hr')[0]).toBeInTheDocument()
   })
 
   test('renders a blockquote', () => {
-    render(SvelteMarkdown, { source: '> Plain text' })
+    render(SvelteAsciidoc, {source: '> Plain text'})
 
     const element = document.getElementsByTagName('blockquote')[0]
     expect(element).toBeInTheDocument()
@@ -44,21 +44,21 @@ describe('testing default renderers', () => {
 
   describe('renders a link', () => {
     test('renders link title', () => {
-      render(SvelteMarkdown, {
-        source: '[link](https://pablo.berganza.dev "link title")',
+      render(SvelteAsciidoc, {
+        source: '[link](https://pablo.berganza.dev "link title")'
       })
 
-      const element = screen.getByRole('link', { title: /link title/ })
+      const element = screen.getByRole('link', {title: /link title/})
       expect(element).toBeInTheDocument()
       expect(element).toHaveTextContent('link')
     })
 
     test('renders link name', () => {
-      render(SvelteMarkdown, {
-        source: '[link](https://pablo.berganza.dev "link title")',
+      render(SvelteAsciidoc, {
+        source: '[link](https://pablo.berganza.dev "link title")'
       })
 
-      const element = screen.getByRole('link', { name: /link/ })
+      const element = screen.getByRole('link', {name: /link/})
       expect(element).toBeInTheDocument()
       expect(element).toHaveTextContent('link')
     })
@@ -66,78 +66,78 @@ describe('testing default renderers', () => {
 
   describe('heading', () => {
     test('renders a heading with id', () => {
-      render(SvelteMarkdown, { source: '# This is a title' })
+      render(SvelteAsciidoc, {source: '# This is a title'})
 
-      const element = screen.getByRole('heading', { name: /This is a title/ })
+      const element = screen.getByRole('heading', {name: /This is a title/})
       expect(element).toBeInTheDocument()
       expect(element).toHaveAttribute('id', 'this-is-a-title')
     })
 
     test('renders a heading (alternative syntax)', () => {
-      render(SvelteMarkdown, { source: 'This is a title\n===' })
+      render(SvelteAsciidoc, {source: 'This is a title\n==='})
 
-      const element = screen.getByRole('heading', { name: /This is a title/ })
+      const element = screen.getByRole('heading', {name: /This is a title/})
       expect(element).toBeInTheDocument()
       expect(element).toHaveAttribute('id', 'this-is-a-title')
     })
 
     test('renders a heading with id and preffix', () => {
-      render(SvelteMarkdown, {
+      render(SvelteAsciidoc, {
         source: '# This is a title',
-        options: { headerPrefix: 'test-' },
+        options: {headerPrefix: 'test-'}
       })
 
-      const element = screen.getByRole('heading', { name: /This is a title/ })
+      const element = screen.getByRole('heading', {name: /This is a title/})
       expect(element).toHaveAttribute('id', 'test-this-is-a-title')
     })
 
     test('renders a heading with non-duplicate id', () => {
-      render(SvelteMarkdown, {
-        source: '# This is a title\n\n## This is a title',
+      render(SvelteAsciidoc, {
+        source: '# This is a title\n\n## This is a title'
       })
 
       const element = screen.getAllByRole('heading', {
-        name: /This is a title/,
+        name: /This is a title/
       })
       expect(element[0]).toHaveAttribute('id', 'this-is-a-title')
       expect(element[1]).toHaveAttribute('id', 'this-is-a-title-1')
     })
 
     test('renders a heading without id', () => {
-      render(SvelteMarkdown, {
+      render(SvelteAsciidoc, {
         source: '# This is a title',
-        options: { headerIds: false },
+        options: {headerIds: false}
       })
 
-      const element = screen.getByRole('heading', { name: /This is a title/ })
+      const element = screen.getByRole('heading', {name: /This is a title/})
       expect(element).not.toHaveAttribute('id')
     })
   })
 
   test('renders an image', () => {
-    render(SvelteMarkdown, {
+    render(SvelteAsciidoc, {
       source:
-        '![Image](https://pablo.berganza.dev/img/profile-pic-400.jpeg "image title")',
+        '![Image](https://pablo.berganza.dev/img/profile-pic-400.jpeg "image title")'
     })
 
-    const element = screen.getByRole('img', { name: /Image/ })
+    const element = screen.getByRole('img', {name: /Image/})
     expect(element).toBeInTheDocument()
     expect(element).toHaveAttribute('title', 'image title')
   })
 
   test('renders a table', () => {
-    render(SvelteMarkdown, {
+    render(SvelteAsciidoc, {
       source: `
   | header |
   |--------|
-  | value |`,
+  | value |`
     })
 
     const element = screen.getByRole('table')
     const tableHeaderElement = screen.getByRole('columnheader', {
-      name: /header/,
+      name: /header/
     })
-    const tableCellElement = screen.getByRole('cell', { name: /value/ })
+    const tableCellElement = screen.getByRole('cell', {name: /value/})
     expect(element).toBeInTheDocument()
     expect(element).toContainElement(tableHeaderElement)
     expect(element).toContainElement(tableCellElement)

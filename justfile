@@ -1,8 +1,11 @@
 export PATH := "./node_modules/.bin:" + env_var('PATH')
 
 build:
-  tsc
   vite build
+  just package
+
+package:
+  svelte-kit sync && svelte-package && publint
 
 test:
   vitest run

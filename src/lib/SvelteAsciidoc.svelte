@@ -1,7 +1,6 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte'
-  import asciidoctor from '@asciidoctor/core'
-  import type {Document} from '@asciidoctor/core'
+  import asciidoctor, {Document} from '@asciidoctor/core'
 
   import Block from './Block.svelte'
   import Outline from './renderers/Outline.svelte'

@@ -1,8 +1,8 @@
 import {setContext} from 'svelte'
-import SvelteMarkdown from './SvelteMarkdown.svelte'
-import {Renderers} from './renderers'
+import SvelteAsciidoc from './SvelteAsciidoc.svelte'
+import type {Renderers} from './renderers'
 
-export default SvelteMarkdown
+export default SvelteAsciidoc
 
 const extraKey = Symbol('extrakey')
 export function setExtra(extra: any) {
