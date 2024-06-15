@@ -10,12 +10,6 @@ package:
 dev:
   vite dev --port 3001
 
-test:
-  vitest run
-
-test-only file:
-  bun test {{file}}
-
 publish: build
   npm publish
 
