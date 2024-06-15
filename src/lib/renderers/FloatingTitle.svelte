@@ -6,10 +6,10 @@
 
   export let node: AbstractBlock
 
-  let level = node.getLevel()
+  const level = node.getLevel()
 </script>
 
-<div class={`sectionanchor`} id={node.getId()} {...getLineNumber(node)}>
+<div class={'sectionanchor'} id={node.getId()} {...getLineNumber(node)}>
   <svelte:element
     this={`h${level + 1}`}
     class={`${getRole(node)} ${node.getStyle()}`}

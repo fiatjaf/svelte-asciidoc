@@ -1,7 +1,9 @@
 import js from '@eslint/js'
+import globals from 'globals'
 import prettier from 'eslint-plugin-prettier/recommended'
 import tseslint from 'typescript-eslint'
 import svelte from 'eslint-plugin-svelte'
+import svelteParser from 'svelte-eslint-parser'
 
 export default [
   js.configs.recommended,
@@ -11,9 +13,12 @@ export default [
   ...svelte.configs['flat/prettier'],
   {
     languageOptions: {
+      globals: {...globals.node, ...globals.browser},
+      sourceType: 'module',
+      ecmaVersion: 'latest',
+      parser: svelteParser,
       parserOptions: {
-        sourceType: 'module',
-        ecmaVersion: 2020,
+        parser: tseslint.parser,
         extraFileExtensions: ['.svelte']
       }
     },
@@ -41,7 +46,9 @@ export default [
           argsIgnorePattern: '^_',
           ignoreRestSiblings: true
         }
-      ]
+      ],
+      'svelte/no-at-html-tags': ['off'],
+      '@typescript-eslint/no-explicit-any': ['off']
     }
   },
   {

@@ -5,19 +5,19 @@
 
   export let node: Table
 
-  let classes = [
+  const classes = [
     'frame-' + node.getAttribute('frame', 'all', 'node-frame'),
     'grid-' + node.getAttribute('grid', 'all', 'node-grid')
   ]
 
-  let stripes = node.getAttribute('stripes', null, 'node-stripes')
+  const stripes = node.getAttribute('stripes', null, 'node-stripes')
 
   if (stripes) {
     classes.push('stripes-' + stripes)
   }
 
-  let autowidth = node.hasAutowidthOption()
-  let tablewidth = node.getAttribute('tablepcwidth')
+  const autowidth = node.hasAutowidthOption()
+  const tablewidth = node.getAttribute('tablepcwidth')
   let width: string | null = null
 
   if (autowidth && !node.hasAttribute('width')) {

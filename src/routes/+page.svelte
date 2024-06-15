@@ -3,7 +3,7 @@
   import SvelteAsciidoc from '../lib'
 
   onMount(() => {
-    let link = document.createElement('link')
+    const link = document.createElement('link')
     link.rel = 'stylesheet'
     link.href =
       'https://cdnjs.cloudflare.com/ajax/libs/asciidoctor.js/1.5.9/css/asciidoctor.min.css'

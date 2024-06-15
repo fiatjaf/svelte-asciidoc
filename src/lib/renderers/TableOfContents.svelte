@@ -7,7 +7,7 @@
 
   export let node: AbstractBlock
 
-  let idAttr: string = node.getId() || 'toc'
+  const idAttr: string = node.getId() || 'toc'
 
   $: doc = node.getDocument()
   $: tocPlacement = doc.getAttribute('toc-placement')

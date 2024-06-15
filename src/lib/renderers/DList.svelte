@@ -12,7 +12,7 @@
   const itempairs = node.getItems() as any as [
     ListItem[],
     Pick<ListItem, 'hasText' | 'getText' | 'hasBlocks' | 'getBlocks'> & {
-      getNodeName: undefined | Function
+      getNodeName: undefined | (() => string)
     }
   ][]
 
