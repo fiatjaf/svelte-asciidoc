@@ -1,8 +1,8 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
   import Html from './HTML.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 </script>
 
-<Html raw={block.getContent() || ''} />
+<Html raw={node.getContent() || ''} />

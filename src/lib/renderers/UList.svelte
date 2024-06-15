@@ -1,26 +1,26 @@
 <script lang="ts">
-  import {List} from '@asciidoctor/core'
+  import {type List} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
   import Title from './Title.svelte'
   import Html from './HTML.svelte'
-  import Block from 'src/Block.svelte'
+  import Block from '../Block.svelte'
 
-  export let list: List
+  export let node: List
 
-  const isChecklist = list.isOption('checklist')
+  const isChecklist = node.isOption('checklist')
 </script>
 
 <div
-  id={list.getId()}
-  class={`ulist ${list.getStyle()} ${getRole(list)} ${isChecklist ? 'checklist' : ''}`}
-  {...getLineNumber(list)}
+  id={node.getId()}
+  class={`ulist ${node.getStyle()} ${getRole(node)} ${isChecklist ? 'checklist' : ''}`}
+  {...getLineNumber(node)}
 >
-  <Title block={list} />
+  <Title block={node} />
   <ul class={isChecklist ? 'checklist' : ''}>
-    {#each list.getItems() as item}
+    {#each node.getItems() as item}
       {#if isChecklist}
-        <li id={item.getId()} class={getRole(list)}>
+        <li id={item.getId()} class={getRole(node)}>
           <p>
             {#if item.hasAttribute('checkbox')}
               <i
@@ -32,10 +32,10 @@
           </p>
         </li>
       {:else}
-        <li id={item.getId()} class={getRole(list)}>
+        <li id={item.getId()} class={getRole(node)}>
           <p>{@html item.getText()}</p>
           {#each item.getBlocks() as b}
-            <Block block={b} />
+            <Block node={b} />
           {/each}
         </li>
       {/if}

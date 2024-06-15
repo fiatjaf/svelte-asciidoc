@@ -1,5 +1,3 @@
-/* eslint-disable camelcase */
-
 import Outline from './Outline.svelte'
 import Audio from './Audio.svelte'
 import Preamble from './Preamble.svelte'

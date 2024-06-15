@@ -1,29 +1,29 @@
 <script lang="ts">
-  import {List} from '@asciidoctor/core'
+  import {type List} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
   import Title from './Title.svelte'
   import Html from './HTML.svelte'
-  import Block from 'src/Block.svelte'
+  import Block from '../Block.svelte'
 
-  export let list: List
+  export let node: List
 </script>
 
 <div
-  class={`olist ${getRole(list)} ${list.getStyle()}`}
-  {...getLineNumber(list)}
+  class={`onode ${getRole(node)} ${node.getStyle()}`}
+  {...getLineNumber(node)}
 >
-  <Title block={list} />
+  <Title block={node} />
   <ol
-    class={list.getStyle()}
-    reversed={list.isOption('reversed')}
-    start={list.getAttribute('start')}
+    class={node.getStyle()}
+    reversed={node.isOption('reversed')}
+    start={node.getAttribute('start')}
   >
-    {#each list.getItems() as item}
-      <li class={getRole(list) || ''}>
+    {#each node.getItems() as item}
+      <li class={getRole(node) || ''}>
         <p><Html raw={item.getText()} /></p>
         {#each item.getBlocks() as b}
-          <Block block={b} />
+          <Block node={b} />
         {/each}
       </li>
     {/each}

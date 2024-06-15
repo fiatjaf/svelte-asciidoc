@@ -1,18 +1,18 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
-  import Block from 'src/Block.svelte'
+  import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
+  import Block from '../Block.svelte'
   import Title from './Title.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 </script>
 
-<div class={`sidebarblock ${getRole(block)}`} {...getLineNumber(block)}>
+<div class={`sidebarblock ${getRole(node)}`} {...getLineNumber(node)}>
   <div class="content">
-    <Title {block} />
-    {#each block.getBlocks() as b}
-      <Block block={b} />
+    <Title {node} />
+    {#each node.getBlocks() as b}
+      <Block node={b} />
     {/each}
   </div>
 </div>

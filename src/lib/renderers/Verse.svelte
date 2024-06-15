@@ -1,22 +1,22 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
   import Title from './Title.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  const attribution = block.getAttribute('attribution')
-  const citetitle = block.getAttribute('citetitle')
-  const content = block.getContent() || ''
+  const attribution = node.getAttribute('attribution')
+  const citetitle = node.getAttribute('citetitle')
+  const content = node.getContent() || ''
 </script>
 
 <div
-  id="block.getId()"
-  class={`verseblock ${getRole(block)}`}
-  {...getLineNumber(block)}
+  id={node.getId()}
+  class={`verseblock ${getRole(node)}`}
+  {...getLineNumber(node)}
 >
-  <Title {block} />
+  <Title {node} />
   <pre class="content">{@html content}</pre>
   {#if attribution}
     <div class="attribution">

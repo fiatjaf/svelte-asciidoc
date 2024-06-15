@@ -1,19 +1,19 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
   import Html from './HTML.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  let level = block.getLevel()
+  let level = node.getLevel()
 </script>
 
-<div class={`sectionanchor`} id={block.getId()} {...getLineNumber(block)}>
+<div class={`sectionanchor`} id={node.getId()} {...getLineNumber(node)}>
   <svelte:element
     this={`h${level + 1}`}
-    class={`${getRole(block)} ${block.getStyle()}`}
+    class={`${getRole(node)} ${node.getStyle()}`}
   >
-    <Html raw={block.getTitle() || ''} />
+    <Html raw={node.getTitle() || ''} />
   </svelte:element>
 </div>

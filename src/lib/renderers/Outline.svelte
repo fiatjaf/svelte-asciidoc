@@ -1,12 +1,12 @@
 <script lang="ts">
-  import {AbstractBlock, Section} from '@asciidoctor/core'
+  import {type AbstractBlock, type Section} from '@asciidoctor/core'
 
   import Html from './HTML.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  $: doc = block.getDocument()
-  $: sections = block.getSections()
+  $: doc = node.getDocument()
+  $: sections = node.getSections()
   $: docAttrs = doc.getAttributes()
   $: sectNumLevelsAttr = doc.getAttribute('sectnumlevels')
   $: tocLevelsAttr = doc.getAttribute('toclevels')
@@ -43,7 +43,7 @@
   }
 </script>
 
-{#if block.hasSections()}
+{#if node.hasSections()}
   <ul class={`sectlevel${sections[0].getLevel()}`}>
     {#each sections as section (section.getId())}
       <li>
@@ -51,7 +51,7 @@
           <Html raw={getTitle(section)} />
         </a>
         {#if section.getLevel() < tocLevels}
-          <svelte:self block={section} {tocLevels} {sectNumLevels} />
+          <svelte:self node={section} {tocLevels} {sectNumLevels} />
         {/if}
       </li>
     {/each}

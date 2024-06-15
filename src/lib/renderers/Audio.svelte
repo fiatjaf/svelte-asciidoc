@@ -1,13 +1,13 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber} from '../utils'
   import Title from './Title.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  const startTime = block.getAttribute('start')
-  const endTime = block.getAttribute('start')
+  const startTime = node.getAttribute('start')
+  const endTime = node.getAttribute('start')
   const timeAnchor =
     startTime || endTime
       ? `#t=${startTime || ''}` + endTime
@@ -16,14 +16,14 @@
       : ''
 </script>
 
-<div class="audioblock" {...getLineNumber(block)}>
-  <Title {block} />
+<div class="audioblock" {...getLineNumber(node)}>
+  <Title {node} />
   <div class="content">
     <audio
-      src={`${block.getMediaUri(block.getAttribute('target'))}${timeAnchor}`}
-      autoPlay={block.isOption('autoplay')}
-      controls={!block.isOption('nocontrols')}
-      loop={block.isOption('loop')}
+      src={`${node.getMediaUri(node.getAttribute('target'))}${timeAnchor}`}
+      autoPlay={node.isOption('autoplay')}
+      controls={!node.isOption('nocontrols')}
+      loop={node.isOption('loop')}
     >
       Your browser does not support the audio tag.
     </audio>

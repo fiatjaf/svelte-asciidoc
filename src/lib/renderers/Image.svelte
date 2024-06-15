@@ -1,42 +1,42 @@
 <script lang="ts">
-  import {Block} from '@asciidoctor/core'
+  import {type Block} from '@asciidoctor/core'
 
   import {getLineNumber} from '../utils'
   import CaptionedTitle from './CaptionedTitle.svelte'
 
-  export let block: Block
+  export let node: Block
 
-  const target = block.getAttribute('target')
+  const target = node.getAttribute('target')
 </script>
 
 <div
   class={`imageblock ${
-    block.hasAttribute('align') ? 'text-' + block.getAttribute('align') : ''
-  } ${block.hasAttribute('float') ? block.getAttribute('float') : ''} ${
-    block.getRole() ? block.getRole() : ''
+    node.hasAttribute('align') ? 'text-' + node.getAttribute('align') : ''
+  } ${node.hasAttribute('float') ? node.getAttribute('float') : ''} ${
+    node.getRole() ? node.getRole() : ''
   }`}
-  {...getLineNumber(block)}
-  style:max-width={block.getAttribute('width')}
-  style:max-height={block.getAttribute('height')}
+  {...getLineNumber(node)}
+  style:max-width={node.getAttribute('width')}
+  style:max-height={node.getAttribute('height')}
 >
   <div class="content">
-    {#if block.hasAttribute('link')}
-      <a class="image" href={block.getAttribute('link')}>
+    {#if node.hasAttribute('link')}
+      <a class="image" href={node.getAttribute('link')}>
         <img
-          src={block.getImageUri(target)}
-          alt={block.getAttribute('alt')}
-          width={block.getAttribute('width')}
-          height={block.getAttribute('height')}
+          src={node.getImageUri(target)}
+          alt={node.getAttribute('alt')}
+          width={node.getAttribute('width')}
+          height={node.getAttribute('height')}
         />
       </a>
     {:else}
       <img
-        src={block.getImageUri(target)}
-        alt={block.getAttribute('alt')}
-        width={block.getAttribute('width')}
-        height={block.getAttribute('height')}
+        src={node.getImageUri(target)}
+        alt={node.getAttribute('alt')}
+        width={node.getAttribute('width')}
+        height={node.getAttribute('height')}
       />
     {/if}
   </div>
-  <CaptionedTitle {block} />
+  <CaptionedTitle {node} />
 </div>

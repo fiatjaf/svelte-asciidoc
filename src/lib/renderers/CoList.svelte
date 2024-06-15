@@ -1,19 +1,19 @@
 <script lang="ts">
-  import {List} from '@asciidoctor/core'
+  import {type List} from '@asciidoctor/core'
 
   import {getLineNumber} from '../utils'
   import Html from './HTML.svelte'
-  import Block from 'src/Block.svelte'
+  import Block from '../Block.svelte'
   import Title from './Title.svelte'
 
-  export let list: List
+  export let node: List
 </script>
 
-<div class="colist" {...getLineNumber(list)}>
-  <Title block={list} />
+<div class="colist" {...getLineNumber(node)}>
+  <Title block={node} />
   <table>
     <tbody>
-      {#each list.getItems() as item, index}
+      {#each node.getItems() as item, index}
         <tr>
           <td>
             <i class="conum" data-value={index + 1} />
@@ -22,7 +22,7 @@
           <td>
             <Html raw={item.getText()} />
             {#each item.getBlocks() as b}
-              <Block block={b} />
+              <Block node={b} />
             {/each}
           </td>
         </tr>

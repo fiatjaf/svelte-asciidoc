@@ -1,10 +1,10 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
   import Html from './HTML.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 </script>
 
 <div class="title">
-  <Html raw={block.getTitle() || ''} />
+  <Html raw={node.getTitle() || ''} />
 </div>

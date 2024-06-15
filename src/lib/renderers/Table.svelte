@@ -1,26 +1,26 @@
 <script lang="ts">
-  import {Table} from '@asciidoctor/core'
+  import {type Table} from '@asciidoctor/core'
 
   import {getLineNumber} from '../utils'
 
-  export let table: Table
+  export let node: Table
 
   let classes = [
-    'frame-' + table.getAttribute('frame', 'all', 'table-frame'),
-    'grid-' + table.getAttribute('grid', 'all', 'table-grid')
+    'frame-' + node.getAttribute('frame', 'all', 'node-frame'),
+    'grid-' + node.getAttribute('grid', 'all', 'node-grid')
   ]
 
-  let stripes = table.getAttribute('stripes', null, 'table-stripes')
+  let stripes = node.getAttribute('stripes', null, 'node-stripes')
 
   if (stripes) {
     classes.push('stripes-' + stripes)
   }
 
-  let autowidth = table.hasAutowidthOption()
-  let tablewidth = table.getAttribute('tablepcwidth')
+  let autowidth = node.hasAutowidthOption()
+  let tablewidth = node.getAttribute('tablepcwidth')
   let width: string | null = null
 
-  if (autowidth && !table.hasAttribute('width')) {
+  if (autowidth && !node.hasAttribute('width')) {
     classes.push('fit-content')
   } else if (tablewidth == 100) {
     classes.push('stretch')
@@ -28,17 +28,17 @@
     width = `${tablewidth}%`
   }
 
-  if (table.hasAttribute('float')) classes.push(table.getAttribute('float'))
-  if (table.getRole()) classes.push(table.getRole() || '')
+  if (node.hasAttribute('float')) classes.push(node.getAttribute('float'))
+  if (node.getRole()) classes.push(node.getRole() || '')
 
-  const rowCount = table.getRowCount()
-  const columns = table.getColumns() as any
-  const headRows = table.getHeadRows()
-  const bodyRows = table.getBodyRows()
-  const footRows = table.getFootRows()
+  const rowCount = node.getRowCount()
+  const columns = node.getColumns() as any
+  const headRows = node.getHeadRows()
+  const bodyRows = node.getBodyRows()
+  const footRows = node.getFootRows()
 
-  const title = table.getTitle()
-  const id = table.getId()
+  const title = node.getTitle()
+  const id = node.getId()
   const slug = id || slugify(title || '')
 
   function cellProps(cell: Table.Cell) {
@@ -68,18 +68,18 @@
   }
 </script>
 
-<table
+<node
   class={'tableblock ' + classes.join(' ')}
   style:width={width ? width + 'px' : ''}
-  {...getLineNumber(table)}
+  {...getLineNumber(node)}
 >
-  {#if table.hasTitle()}
+  {#if node.hasTitle()}
     <caption class="title">
       {#if !id}
         <!-- svelte-ignore a11y-missing-content -->
         <a class="anchor" id={slug}></a>
       {/if}
-      <a href={`#${slug}`}>{table.getCaptionedTitle()}</a>
+      <a href={`#${slug}`}>{node.getCaptionedTitle()}</a>
     </caption>
   {/if}
 
@@ -144,4 +144,4 @@
       </tr>
     </tfoot>
   {/each}
-</table>
+</node>

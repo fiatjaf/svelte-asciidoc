@@ -1,18 +1,18 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber} from '../utils'
   import CaptionedTitle from './CaptionedTitle.svelte'
 
-  export let block: AbstractBlock
-  const document = block.getDocument()
-  const lang = block.getAttributes()?.language
-  const nowrap = block.isOption('nowrap') || !document.hasAttribute('prewrap')
-  const content = block.getContent() || ''
+  export let node: AbstractBlock
+  const document = node.getDocument()
+  const lang = node.getAttributes()?.language
+  const nowrap = node.isOption('nowrap') || !document.hasAttribute('prewrap')
+  const content = node.getContent() || ''
 </script>
 
-<div class="listingblock" {...getLineNumber(block)}>
-  <CaptionedTitle {block} />
+<div class="listingblock" {...getLineNumber(node)}>
+  <CaptionedTitle {node} />
   <div class="content">
     <pre class={`highlight ${nowrap ? ' nowrap' : ''}`}>
             {#if lang}

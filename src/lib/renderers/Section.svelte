@@ -1,37 +1,37 @@
 <script lang="ts">
-  import {Section} from '@asciidoctor/core'
+  import {type Section} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
   import SectionTitle from './SectionTitle.svelte'
-  import Block from 'src/Block.svelte'
+  import Block from '../Block.svelte'
 
-  export let section: Section
+  export let node: Section
 
-  const level = section.getLevel()
+  const level = node.getLevel()
 
-  let sectNum = section.getSectionNumeral()
+  let sectNum = node.getSectionNumeral()
   sectNum = sectNum === '.' ? '' : sectNum
 </script>
 
 {#if level === 0}
   <h1
-    class={`sect0 ${getRole(section)}`}
+    class={`sect0 ${getRole(node)}`}
     data-sectnum={sectNum}
-    {...getLineNumber(section)}
+    {...getLineNumber(node)}
   >
-    <SectionTitle {section} {level} {sectNum} />
+    <SectionTitle {node} {level} {sectNum} />
   </h1>
-  {#each section.getBlocks() as b}
-    <Block block={b} />
+  {#each node.getBlocks() as b}
+    <Block node={b} />
   {/each}
 {:else}
-  <div class={`sect${level} ${getRole(section)}`} {...getLineNumber(section)}>
+  <div class={`sect${level} ${getRole(node)}`} {...getLineNumber(node)}>
     <svelte:element this={`h${level + 1}`} data-sectnum={sectNum}>
-      <SectionTitle {section} {level} {sectNum} />
+      <SectionTitle {node} {level} {sectNum} />
     </svelte:element>
-    <div class="sectionbody">
-      {#each section.getBlocks() as b}
-        <Block block={b} />
+    <div class="nodebody">
+      {#each node.getBlocks() as b}
+        <Block node={b} />
       {/each}
     </div>
   </div>

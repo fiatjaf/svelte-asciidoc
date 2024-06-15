@@ -1,11 +1,9 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type Renderers, defaultRenderers} from './renderers'
 
-  import {Renderers, defaultRenderers} from './renderers'
+  export let node: any
 
-  export let block: AbstractBlock
-
-  let type = block.getNodeName() as keyof Renderers
+  let type = node.getNodeName() as keyof Renderers
 </script>
 
-<svelte:component this={defaultRenderers[type]} {block} />
+<svelte:component this={defaultRenderers[type]} {node} />

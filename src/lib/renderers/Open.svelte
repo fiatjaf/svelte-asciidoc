@@ -1,36 +1,33 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
-  import Block from 'src/Block.svelte'
+  import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
+  import Block from '../Block.svelte'
   import Title from './Title.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  const style = block.getStyle()
+  const style = node.getStyle()
 </script>
 
 {#if style === 'abstract'}
-  <div
-    class={`quoteblock abstract ${getRole(block)}`}
-    {...getLineNumber(block)}
-  >
-    <Title {block} />
+  <div class={`quoteblock abstract ${getRole(node)}`} {...getLineNumber(node)}>
+    <Title {node} />
     <blockquote class="content">
-      {#each block.getBlocks() as b}
-        <Block block={b} />
+      {#each node.getBlocks() as b}
+        <Block node={b} />
       {/each}
     </blockquote>
   </div>
 {:else}
   <div
-    class={`openblock ${style && style !== 'open' ? style : ''} ${getRole(block)}`}
-    {...getLineNumber(block)}
+    class={`openblock ${style && style !== 'open' ? style : ''} ${getRole(node)}`}
+    {...getLineNumber(node)}
   >
-    <Title {block} />
+    <Title {node} />
     <div class="content">
-      {#each block.getBlocks() as b}
-        <Block block={b} />
+      {#each node.getBlocks() as b}
+        <Block node={b} />
       {/each}
     </div>
   </div>

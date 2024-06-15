@@ -7,6 +7,9 @@ build:
 package:
   svelte-kit sync && svelte-package && publint
 
+dev:
+  vite dev --port 3001
+
 test:
   vitest run
 

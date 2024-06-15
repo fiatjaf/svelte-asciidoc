@@ -1,36 +1,35 @@
 <script lang="ts">
-  import {List, ListItem} from '@asciidoctor/core'
+  import {type List, type ListItem} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
   import Html from './HTML.svelte'
-  import Block from 'src/Block.svelte'
+  import Block from '../Block.svelte'
+  import CaptionedTitle from './CaptionedTitle.svelte'
 
-  export let list: List
+  export let node: List
 
-  const style = list.getStyle()
-  const itempairs = list.getItems() as any as [
+  const style = node.getStyle()
+  const itempairs = node.getItems() as any as [
     ListItem[],
     Pick<ListItem, 'hasText' | 'hasBlocks'> & {
       getNodeName: undefined | Function
     }
   ][]
 
-  let labelWidth = list.getAttribute('labelwidth')
+  let labelWidth = node.getAttribute('labelwidth')
   labelWidth = labelWidth
     ? (labelWidth = `${labelWidth.replace('%', '')}%`)
     : ''
 
-  let itemWidth = list.getAttribute('itemwidth')
+  let itemWidth = node.getAttribute('itemwidth')
   itemWidth = itemWidth ? `${itemWidth.replace('%', '')}%` : ''
 </script>
 
-<div {...getLineNumber(list)}></div>
+<div {...getLineNumber(node)}></div>
 
 {#if style === 'qanda'}
-  <div class={`qlist qanda ${getRole(list)}`} {...getLineNumber(list)}>
-    {#if list.hasTitle()}
-      <div class="title">{list.getCaptionedTitle()}</div>
-    {/if}
+  <div class={`qlist qanda ${getRole(node)}`} {...getLineNumber(node)}>
+    <CaptionedTitle {node} />
     <ol>
       {#each itempairs as item}
         <li>
@@ -45,8 +44,8 @@
                 <p><Html raw="getText(item[1])}" /></p>
               {/if}
               {#if item[1].hasBlocks()}
-                {#each list.getBlocks() as b}
-                  <Block block={b} />
+                {#each node.getBlocks() as b}
+                  <Block node={b} />
                 {/each}
               {/if}
             </dd>
@@ -56,10 +55,8 @@
     </ol>
   </div>
 {:else if style === 'horizontal'}
-  <div class={`hdlist ${getRole(list)}`}>
-    {#if list.hasTitle()}
-      <div class="title">{list.getCaptionedTitle()}</div>
-    {/if}
+  <div class={`hdlist ${getRole(node)}`}>
+    <CaptionedTitle {node} />
     <table>
       {#if labelWidth || itemWidth}
         <colgroup>
@@ -71,7 +68,7 @@
       <tbody>
         {#each itempairs as item, index}
           <tr>
-            <td class={`hdlist1 ${list.isOption('strong') ? 'strong' : ''}`}>
+            <td class={`hdlist1 ${node.isOption('strong') ? 'strong' : ''}`}>
               {#each item[0] as dt}
                 {#if index !== 0}
                   <br />
@@ -86,8 +83,8 @@
                   <p><Html raw="getText(item[1])}" /></p>
                 {/if}
                 {#if item[1].hasBlocks()}
-                  {#each list.getBlocks() as b}
-                    <Block block={b} />
+                  {#each node.getBlocks() as b}
+                    <Block node={b} />
                   {/each}
                 {/if}
               </td>
@@ -98,10 +95,8 @@
     </table>
   </div>
 {:else}
-  <div class={`dlist ${list.getStyle()} ${getRole(list)}`}>
-    {#if list.hasTitle()}
-      <div class="title">{list.getCaptionedTitle()}</div>
-    {/if}
+  <div class={`dlist ${node.getStyle()} ${getRole(node)}`}>
+    <CaptionedTitle {node} />
     <dl>
       {#each itempairs as item}
         {#each item[0] as dt}
@@ -115,8 +110,8 @@
               <p><Html raw="getText(item[1])}" /></p>
             {/if}
             {#if item[1].hasBlocks()}
-              {#each list.getBlocks() as b}
-                <Block block={b} />
+              {#each node.getBlocks() as b}
+                <Block node={b} />
               {/each}
             {/if}
           </dd>

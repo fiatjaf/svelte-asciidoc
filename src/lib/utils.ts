@@ -1,4 +1,4 @@
-import {AbstractBlock} from '@asciidoctor/core'
+import {type AbstractBlock} from '@asciidoctor/core'
 
 export function getLineNumber(block: AbstractBlock): {
   ['data-lineno']?: number

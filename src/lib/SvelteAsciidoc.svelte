@@ -1,6 +1,6 @@
 <script lang="ts">
   import {createEventDispatcher} from 'svelte'
-  import asciidoctor, {Document} from '@asciidoctor/core'
+  import asciidoctor, {type Document} from '@asciidoctor/core'
 
   import Block from './Block.svelte'
   import Outline from './renderers/Outline.svelte'
@@ -77,13 +77,13 @@
     {#if toc}
       <div id="toc" class={doc.getAttribute('toc-class', 'toc')}>
         <div id="toctitle">{doc.getAttribute('toc-title')}</div>
-        <Outline block={doc} sectNumLevels={0} tocLevels={2} />
+        <Outline node={doc} sectNumLevels={0} tocLevels={2} />
       </div>
     {/if}
   </header>
 {/if}
 {#each blocks as block}
-  <Block {block} />
+  <Block node={block} />
 {/each}
 {#if footnotes.length > 0 && !nofootnotes}
   <footer id="footnotes">

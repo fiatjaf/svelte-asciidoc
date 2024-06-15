@@ -1,44 +1,44 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
-  import Block from 'src/Block.svelte'
+  import {type AbstractBlock} from '@asciidoctor/core'
+  import Block from '../Block.svelte'
 
   import {getLineNumber, getRole} from '../utils'
   import CaptionedTitle from './CaptionedTitle.svelte'
   import Html from './HTML.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  const isCollapsible = block.isOption('collapsible')
-  const title = block.getTitle() || 'Details'
-  const isOpen = block.isOption('open') ? true : undefined
+  const isCollapsible = node.isOption('collapsible')
+  const title = node.getTitle() || 'Details'
+  const isOpen = node.isOption('open') ? true : undefined
 </script>
 
 {#if isCollapsible}
   <details
-    id={block.getId()}
-    class={getRole(block)}
+    id={node.getId()}
+    class={getRole(node)}
     open={isOpen}
-    {...getLineNumber(block)}
+    {...getLineNumber(node)}
   >
     <summary class="title">
       <Html raw={title} />
     </summary>
     <div class="content">
-      {#each block.getBlocks() as b}
-        <Block block={b} />
+      {#each node.getBlocks() as b}
+        <Block node={b} />
       {/each}
     </div>
   </details>
 {:else}
   <div
-    id={block.getId()}
-    class={`exampleblock ${getRole(block)}`}
-    {...getLineNumber(block)}
+    id={node.getId()}
+    class={`exampleblock ${getRole(node)}`}
+    {...getLineNumber(node)}
   >
-    <CaptionedTitle {block} />
+    <CaptionedTitle {node} />
     <div class="content">
-      {#each block.getBlocks() as b}
-        <Block block={b} />
+      {#each node.getBlocks() as b}
+        <Block node={b} />
       {/each}
     </div>
   </div>

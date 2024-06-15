@@ -1,12 +1,12 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
+  import {type AbstractBlock} from '@asciidoctor/core'
   import Html from './HTML.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 </script>
 
-{#if block.hasTitle()}
+{#if node.hasTitle()}
   <div class="title">
-    <Html raw={block.getCaptionedTitle() || ''} />
+    <Html raw={node.getCaptionedTitle() || ''} />
   </div>
 {/if}

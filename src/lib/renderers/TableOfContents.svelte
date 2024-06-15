@@ -1,29 +1,29 @@
 <script lang="ts">
-  import {AbstractBlock} from '@asciidoctor/core'
-  import {getRole} from 'src/utils'
+  import {type AbstractBlock} from '@asciidoctor/core'
+  import {getRole} from '../utils'
 
   import Html from './HTML.svelte'
   import Outline from './Outline.svelte'
 
-  export let block: AbstractBlock
+  export let node: AbstractBlock
 
-  let idAttr: string = block.getId() || 'toc'
+  let idAttr: string = node.getId() || 'toc'
 
-  $: doc = block.getDocument()
+  $: doc = node.getDocument()
   $: tocPlacement = doc.getAttribute('toc-placement')
   $: hasToc = doc.hasAttribute('toc')
-  $: title = block.hasTitle() ? block.getTitle() : doc.getAttribute('toc-title')
+  $: title = node.hasTitle() ? node.getTitle() : doc.getAttribute('toc-title')
 
-  const levels = block.hasAttribute('levels')
-    ? parseInt(block.getAttribute('levels'))
+  const levels = node.hasAttribute('levels')
+    ? parseInt(node.getAttribute('levels'))
     : undefined
 </script>
 
 {#if tocPlacement === 'macro' && doc.hasSections() && hasToc}
-  <div id={idAttr} class={`toc ${getRole(block)}`}>
+  <div id={idAttr} class={`toc ${getRole(node)}`}>
     <div id={`${idAttr}title`} class="title">
       <Html raw={title || ''} />
     </div>
-    <Outline block={doc} tocLevels={levels} />
+    <Outline node={doc} tocLevels={levels} />
   </div>
 {/if}
