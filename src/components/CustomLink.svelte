@@ -3,7 +3,7 @@
 
   export let attrs: {[_: string]: string}
 
-  let extra = getExtra()
+  const extra = getExtra()
 </script>
 
 {#if attrs.href.startsWith('nostr:')}

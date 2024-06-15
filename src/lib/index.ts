@@ -21,9 +21,9 @@ export function getCustomRenderers(): Partial<Renderers> {
 }
 
 const naturalRenderersKey = Symbol('naturalRenderers')
-export function setNaturalRenderers(cr: Partial<NaturalRenderers>) {
+export function setNaturalRenderers(cr: NaturalRenderers) {
   setContext(naturalRenderersKey, cr)
 }
-export function getNaturalRenderers(): Partial<NaturalRenderers> {
+export function getNaturalRenderers(): NaturalRenderers {
   return getContext(naturalRenderersKey) || {}
 }

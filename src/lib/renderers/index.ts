@@ -27,7 +27,7 @@ import TableOfContents from './TableOfContents.svelte'
 
 export type Renderers = typeof defaultRenderers
 export type NaturalRenderers = {
-  [tagName: string]: SvelteComponent<{
+  [tagName: string]: new (_: {target: any; props?: any}) => SvelteComponent<{
     attrs: {[_: string]: string}
   }>
 }

@@ -9,9 +9,9 @@
   import {setCustomRenderers, setNaturalRenderers, setExtra} from './'
 
   export let source: string
-  export let extra: any
+  export let extra: any = null
   export let customRenderers: Partial<Renderers> = {}
-  export let naturalRenderers: Partial<NaturalRenderers> = {}
+  export let naturalRenderers: NaturalRenderers = {}
 
   setCustomRenderers(customRenderers)
   setNaturalRenderers(naturalRenderers)

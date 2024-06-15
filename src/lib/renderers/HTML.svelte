@@ -8,9 +8,9 @@
   const overrides = getNaturalRenderers()
 
   function gatherAttributes(node: ITag) {
-    let attr: {[_: string]: string} = {}
+    const attr: {[_: string]: string} = {}
     for (let i = 0; i < node.attributes.length; i++) {
-      let {name, value} = node.attributes[i]
+      const {name, value} = node.attributes[i]
       if (name && value) {
         attr[name.value] = value.value
       }
