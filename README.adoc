@@ -1,0 +1,64 @@
+= svelte-asciidoc
+
+[source,bash]
+----
+npm install svelte-asciidoc
+----
+
+This library takes a blob of https://asciidoc.org/[AsciiDoc] text renders it as a collection
+of Svelte components that can be customized. Similar to https://github.com/oxidecomputer/react-asciidoc
+and https://github.com/pablo-abc/svelte-markdown (but don't use Markdown ever again in your life, please,
+use just AsciiDoc).
+
+[source,html]
+----
+<script>
+import SvelteAsciidoc from 'svelte-asciidoc'
+</script>
+
+<div>
+  <SvelteAsciidoc
+    source={`
+= hello world
+
+this is _some_ *asciidoc* text^2^!
+    `}
+  />
+</div>
+----
+
+Now suppose you want to make bold text also look bluey. Create a new component `CustomBold.svelte`:
+
+[source,html]
+----
+<strong style="color: blue"><slot /></strong>
+----
+
+and then pass it to `SvelteAsciidoc`:
+
+[source,diff]
+----
+ <script>
+ import SvelteAsciidoc from 'svelte-asciidoc'
++import CustomBold from './CustomBold.svelte'
+ </script>
+
+ <div>
+   <SvelteAsciidoc
++    naturalRenderers: {strong: CustomBold}
+     source={`
+ = hello world
+
+ this is _some_ *asciidoc* text^2^!
+     `}
+   />
+ </div>
+----
+
+You can also apply the default https://cdnjs.cloudflare.com/ajax/libs/asciidoctor.js/1.5.9/css/asciidoctor.min.css[asciidoctor.css]
+stylesheet and it should work with the default classes this library generates.
+
+'''
+
+See link:src/routes/+page.svelte[] for another usage example.
+See link:src/lib/renderers[] for all higher-level customizable components and their default implementations (these must be specified with the parameter `customRenderers={}`, while `naturalRenderers={}` is for simple stuff like `a`, `em`, `sup`, `sub`, `strong`).
