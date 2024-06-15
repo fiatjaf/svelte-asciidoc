@@ -16,12 +16,21 @@ export default [
       globals: {...globals.node, ...globals.browser},
       sourceType: 'module',
       ecmaVersion: 'latest',
+      parserOptions: {
+        parser: tseslint.parser
+      }
+    }
+  },
+  {
+    files: ['**/*.svelte'],
+    languageOptions: {
       parser: svelteParser,
       parserOptions: {
-        parser: tseslint.parser,
         extraFileExtensions: ['.svelte']
       }
-    },
+    }
+  },
+  {
     rules: {
       semi: ['warn', 'never'],
       quotes: ['error', 'single'],
