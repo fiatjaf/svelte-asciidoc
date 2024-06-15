@@ -14,9 +14,9 @@ publish: build
   npm publish
 
 format:
-  eslint --ext .ts --fix *.ts
+  eslint --fix
   prettier --write *.ts
 
 lint:
-  eslint --ext .ts *.ts
+  eslint
   prettier --check *.ts
