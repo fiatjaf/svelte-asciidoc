@@ -1,6 +1,6 @@
 import {getContext, setContext} from 'svelte'
 import SvelteAsciidoc from './SvelteAsciidoc.svelte'
-import type {Renderers} from './renderers'
+import type {NaturalRenderers, Renderers} from './renderers'
 
 export default SvelteAsciidoc
 
@@ -18,4 +18,12 @@ export function setCustomRenderers(cr: Partial<Renderers>) {
 }
 export function getCustomRenderers(): Partial<Renderers> {
   return getContext(customRenderersKey) || {}
+}
+
+const naturalRenderersKey = Symbol('naturalRenderers')
+export function setNaturalRenderers(cr: Partial<NaturalRenderers>) {
+  setContext(naturalRenderersKey, cr)
+}
+export function getNaturalRenderers(): Partial<NaturalRenderers> {
+  return getContext(naturalRenderersKey) || {}
 }

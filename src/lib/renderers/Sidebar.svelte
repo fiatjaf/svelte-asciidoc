@@ -4,6 +4,7 @@
   import {getLineNumber, getRole} from '../utils'
   import Block from '../Block.svelte'
   import Title from './Title.svelte'
+  import Html from './HTML.svelte'
 
   export let node: AbstractBlock
 
@@ -14,7 +15,7 @@
   <div class="content">
     <Title {node} />
     {#if blocks.length === 0}
-      {@html node.getContent()}
+      <Html raw={node.getContent()} />
     {:else}
       {#each blocks as b}
         <Block node={b} />

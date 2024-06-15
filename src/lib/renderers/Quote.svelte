@@ -2,6 +2,7 @@
   import {type AbstractBlock} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
+  import Html from './HTML.svelte'
   import Title from './Title.svelte'
 
   export let node: AbstractBlock
@@ -17,7 +18,9 @@
   {...getLineNumber(node)}
 >
   <Title {node} />
-  <blockquote>{@html content}</blockquote>
+  <blockquote>
+    <Html raw={content} />
+  </blockquote>
   {#if attribution}
     <div class="attribution">
       — {attribution}

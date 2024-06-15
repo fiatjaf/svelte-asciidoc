@@ -1,3 +1,5 @@
+import type {SvelteComponent} from 'svelte'
+
 import Audio from './Audio.svelte'
 import Video from './Video.svelte'
 import Preamble from './Preamble.svelte'
@@ -24,6 +26,11 @@ import Verse from './Verse.svelte'
 import TableOfContents from './TableOfContents.svelte'
 
 export type Renderers = typeof defaultRenderers
+export type NaturalRenderers = {
+  [tagName: string]: SvelteComponent<{
+    attrs: {[_: string]: string}
+  }>
+}
 
 export const defaultRenderers = {
   audio: Audio,

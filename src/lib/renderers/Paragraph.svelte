@@ -2,6 +2,7 @@
   import {type Block} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
+  import Html from './HTML.svelte'
   import Title from './Title.svelte'
 
   export let node: Block
@@ -13,5 +14,5 @@
   {...getLineNumber(node)}
 >
   <Title {node} />
-  <p>{@html node.getContent()}</p>
+  <p><Html raw={node.getContent()} /></p>
 </div>

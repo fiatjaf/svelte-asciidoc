@@ -5,8 +5,17 @@
   import Block from './Block.svelte'
   import Outline from './renderers/Outline.svelte'
   import Html from './renderers/HTML.svelte'
+  import type {Renderers, NaturalRenderers} from './renderers'
+  import {setCustomRenderers, setNaturalRenderers, setExtra} from './'
 
   export let source: string
+  export let extra: any
+  export let customRenderers: Partial<Renderers> = {}
+  export let naturalRenderers: Partial<NaturalRenderers> = {}
+
+  setCustomRenderers(customRenderers)
+  setNaturalRenderers(naturalRenderers)
+  setExtra(extra)
 
   const dispatch = createEventDispatcher()
 

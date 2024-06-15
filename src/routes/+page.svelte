@@ -1,5 +1,6 @@
 <script lang="ts">
   import {onMount} from 'svelte'
+  import CustomLink from '../components/CustomLink.svelte'
   import SvelteAsciidoc from '../lib'
 
   onMount(() => {
@@ -15,6 +16,8 @@
   <h1>svelte-asciidoc testing area</h1>
 
   <SvelteAsciidoc
+    naturalRenderers={{a: CustomLink}}
+    extra={837}
     source={`
 = hello
 
@@ -56,6 +59,27 @@ CAUTION: we can~maybe~ even *have* \`formatting\` in admonition blocks
 
 == now other stuff
 
+=== description list
+
+fruit:: banana
+colors::
+* black
+* yellow
+rank::
+  for ice cream::: caturra
+  for eating:::
+    . prata
+    . caturra
+  for churras::: da terra
+
+== audio and video
+
+ok, this is getting ridiculous
+
+video::https://cdn.satellite.earth/c66116e75e7c90225c1e825851558661e68e655567a024b2533bb622fdf74187.mp4[width=640,start=1,opts=autoplay]
+
+audio::https://cdn.satellite.earth/22cb3b9f130de64291917da61271135021df63fab680fd742252a8d033dca31e.mp3[]
+
 === links
 
 literal link: https://nostr.org/
@@ -66,49 +90,6 @@ relative link? link:bla[works]
 
 custom scheme link: link:nostr:nprofile1qqsrg73rwzgq6xd5u36kyg2ef69a5ur2uhrcthsfuk0yvp0ergplf8q8jdjnf[works]
 
-=== description list
-
-CPU:: The brain of the computer.
-Hard drive:: Permanent storage for operating system and/or user files.
-RAM:: Temporarily stores information the CPU uses during operation.
-Keyboard:: Used to enter text or control items on the screen.
-Mouse:: Used to point to and select items on your computer screen.
-Monitor:: Displays information in visual form using text and graphics.
-
-Dairy::
-* Milk
-* Eggs
-Bakery::
-* Bread
-Produce::
-* Bananas
-
-Operating Systems::
-  Linux:::
-    . Fedora
-      * Desktop
-    . Ubuntu
-      * Desktop
-      * Server
-  BSD:::
-    . FreeBSD
-    . NetBSD
-
-Cloud Providers::
-  PaaS:::
-    . OpenShift
-    . CloudBees
-  IaaS:::
-    . Amazon EC2
-    . Rackspace
-
-== audio and video
-
-ok, this is getting ridiculous
-
-video::https://cdn.satellite.earth/c66116e75e7c90225c1e825851558661e68e655567a024b2533bb622fdf74187.mp4[width=640,start=1,opts=autoplay]
-
-audio::https://cdn.satellite.earth/22cb3b9f130de64291917da61271135021df63fab680fd742252a8d033dca31e.mp3[]
 `}
   />
 </main>

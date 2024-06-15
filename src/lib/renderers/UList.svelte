@@ -33,7 +33,9 @@
         </li>
       {:else}
         <li id={item.getId()} class={getRole(node)}>
-          <p>{@html item.getText()}</p>
+          <p>
+            <Html raw={item.getText()} />
+          </p>
           {#each item.getBlocks() as b}
             <Block node={b} />
           {/each}
