@@ -14,14 +14,9 @@
 <div class="listingblock" {...getLineNumber(node)}>
   <CaptionedTitle {node} />
   <div class="content">
-    <pre class={`highlight ${nowrap ? ' nowrap' : ''}`}>
-            {#if lang}
-        <code class={lang ? `language-${lang}` : ''} data-lang={lang}
-          >{@html content}</code
-        >
-      {:else}
-        <code>{@html content}</code>
-      {/if}
-          </pre>
+    <pre class={`highlight ${nowrap ? ' nowrap' : ''}`}>{#if lang}<code
+          class={lang ? `language-${lang}` : ''}
+          data-lang={lang}>{@html content}</code
+        >{:else}<code>{@html content}</code>{/if}</pre>
   </div>
 </div>

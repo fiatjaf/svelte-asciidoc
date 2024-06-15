@@ -10,7 +10,7 @@
 </script>
 
 <div class="colist" {...getLineNumber(node)}>
-  <Title block={node} />
+  <Title {node} />
   <table>
     <tbody>
       {#each node.getItems() as item, index}

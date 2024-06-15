@@ -10,8 +10,8 @@ export function getLineNumber(block: AbstractBlock): {
   return {}
 }
 
-export function getRole(block: AbstractBlock): string | undefined {
+export function getRole(block: AbstractBlock): string {
   const role = block.getRole()
   if (typeof role === 'string') return role
-  return undefined
+  return ''
 }

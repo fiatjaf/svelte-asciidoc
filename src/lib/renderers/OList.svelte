@@ -13,7 +13,7 @@
   class={`onode ${getRole(node)} ${node.getStyle()}`}
   {...getLineNumber(node)}
 >
-  <Title block={node} />
+  <Title {node} />
   <ol
     class={node.getStyle()}
     reversed={node.isOption('reversed')}

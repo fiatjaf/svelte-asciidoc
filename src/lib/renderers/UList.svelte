@@ -16,7 +16,7 @@
   class={`ulist ${node.getStyle()} ${getRole(node)} ${isChecklist ? 'checklist' : ''}`}
   {...getLineNumber(node)}
 >
-  <Title block={node} />
+  <Title {node} />
   <ul class={isChecklist ? 'checklist' : ''}>
     {#each node.getItems() as item}
       {#if isChecklist}

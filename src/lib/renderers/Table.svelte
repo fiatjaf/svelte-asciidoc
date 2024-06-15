@@ -1,7 +1,7 @@
 <script lang="ts">
   import {type Table} from '@asciidoctor/core'
 
-  import {getLineNumber} from '../utils'
+  import {getLineNumber, getRole} from '../utils'
 
   export let node: Table
 
@@ -29,7 +29,7 @@
   }
 
   if (node.hasAttribute('float')) classes.push(node.getAttribute('float'))
-  if (node.getRole()) classes.push(node.getRole() || '')
+  classes.push(getRole(node))
 
   const rowCount = node.getRowCount()
   const columns = node.getColumns() as any

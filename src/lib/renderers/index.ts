@@ -1,5 +1,5 @@
-import Outline from './Outline.svelte'
 import Audio from './Audio.svelte'
+import Video from './Video.svelte'
 import Preamble from './Preamble.svelte'
 import Section from './Section.svelte'
 import Paragraph from './Paragraph.svelte'
@@ -26,8 +26,8 @@ import TableOfContents from './TableOfContents.svelte'
 export type Renderers = typeof defaultRenderers
 
 export const defaultRenderers = {
-  outline: Outline,
   audio: Audio,
+  video: Video,
   preamble: Preamble,
   section: Section,
   paragraph: Paragraph,

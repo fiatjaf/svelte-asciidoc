@@ -89,7 +89,10 @@
   <footer id="footnotes">
     <hr />
     {#each footnotes as footnote (footnote.getIndex())}
-      <div class="footnote" id={`_footnoteef_${footnote.getIndex()}`}>
+      <div class="footnote" id={`_footnotedef_${footnote.getIndex()}`}>
+        <a href={`#_footnoteref_${footnote.getIndex()}`}
+          >{footnote.getIndex()}</a
+        >.
         {footnote.getText()}
       </div>
     {/each}

@@ -6,13 +6,19 @@
   import Title from './Title.svelte'
 
   export let node: AbstractBlock
+
+  const blocks = node.getBlocks()
 </script>
 
 <div class={`sidebarblock ${getRole(node)}`} {...getLineNumber(node)}>
   <div class="content">
     <Title {node} />
-    {#each node.getBlocks() as b}
-      <Block node={b} />
-    {/each}
+    {#if blocks.length === 0}
+      {@html node.getContent()}
+    {:else}
+      {#each blocks as b}
+        <Block node={b} />
+      {/each}
+    {/if}
   </div>
 </div>

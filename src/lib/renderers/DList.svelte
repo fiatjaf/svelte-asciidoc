@@ -11,7 +11,7 @@
   const style = node.getStyle()
   const itempairs = node.getItems() as any as [
     ListItem[],
-    Pick<ListItem, 'hasText' | 'hasBlocks'> & {
+    Pick<ListItem, 'hasText' | 'getText' | 'hasBlocks' | 'getBlocks'> & {
       getNodeName: undefined | Function
     }
   ][]
@@ -41,10 +41,10 @@
           {#if item[1].getNodeName}
             <dd>
               {#if item[1].hasText()}
-                <p><Html raw="getText(item[1])}" /></p>
+                <p><Html raw={item[1].getText()} /></p>
               {/if}
               {#if item[1].hasBlocks()}
-                {#each node.getBlocks() as b}
+                {#each item[1].getBlocks() as b}
                   <Block node={b} />
                 {/each}
               {/if}
@@ -80,10 +80,10 @@
             {#if item[1].getNodeName}
               <td class="hdlist2">
                 {#if item[1].hasText()}
-                  <p><Html raw="getText(item[1])}" /></p>
+                  <p><Html raw={item[1].getText()} /></p>
                 {/if}
                 {#if item[1].hasBlocks()}
-                  {#each node.getBlocks() as b}
+                  {#each item[1].getBlocks() as b}
                     <Block node={b} />
                   {/each}
                 {/if}
@@ -107,10 +107,10 @@
         {#if item[1].getNodeName}
           <dd>
             {#if item[1].hasText()}
-              <p><Html raw="getText(item[1])}" /></p>
+              <p><Html raw={item[1].getText()} /></p>
             {/if}
             {#if item[1].hasBlocks()}
-              {#each node.getBlocks() as b}
+              {#each item[1].getBlocks() as b}
                 <Block node={b} />
               {/each}
             {/if}
