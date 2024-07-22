@@ -11,6 +11,7 @@ dev:
   vite dev --port 3001
 
 publish: build
+  npx downdoc README.adoc
   npm publish
 
 format:
