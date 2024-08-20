@@ -20,9 +20,12 @@
   const dispatch = createEventDispatcher()
 
   let doc: Document
+  let supportMarkdownTransition = false
 
   $: {
-    doc = asciidoctor().load(source)
+    const Asciidoctor = asciidoctor()
+    ;(Asciidoctor as any).Compliance.markdown_syntax = supportMarkdownTransition
+    doc = Asciidoctor.load(source)
     dispatch('parsed', doc)
   }
 
