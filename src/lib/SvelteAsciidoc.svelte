@@ -12,6 +12,7 @@
   export let extra: any = null
   export let customRenderers: Partial<Renderers> = {}
   export let naturalRenderers: NaturalRenderers = {}
+  export let supportMarkdownTransition = false
 
   setCustomRenderers(customRenderers)
   setNaturalRenderers(naturalRenderers)
@@ -20,7 +21,6 @@
   const dispatch = createEventDispatcher()
 
   let doc: Document
-  let supportMarkdownTransition = false
 
   $: {
     const Asciidoctor = asciidoctor()
