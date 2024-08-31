@@ -2,6 +2,7 @@
   import {type Table} from '@asciidoctor/core'
 
   import {getLineNumber, getRole} from '../utils'
+  import Html from './HTML.svelte'
 
   export let node: Table
 
@@ -68,7 +69,7 @@
   }
 </script>
 
-<node
+<table
   class={'tableblock ' + classes.join(' ')}
   style:width={width ? width + 'px' : ''}
   {...getLineNumber(node)}
@@ -86,7 +87,7 @@
   {#if rowCount > 0}
     <colgroup>
       {#each columns as col}
-        <col style="width: {col.getAttribute('colpcwidth')}%" />
+        <col style:width={`${col.getAttribute('colpcwidth')}%`} />
       {/each}
     </colgroup>
   {/if}
@@ -95,7 +96,7 @@
     <thead>
       <tr>
         {#each row as cell}
-          <th class={getCellClass(cell)}>{@html cell.getText()}</th>
+          <th class={getCellClass(cell)}><Html raw={cell.getText()} /></th>
         {/each}
       </tr>
     </thead>
@@ -107,17 +108,17 @@
         {#each row as cell}
           {#if cell.getStyle() === 'asciidoc'}
             <td {...cellProps(cell)}>
-              <div class="content">{@html cell.getContent() || ''}</div>
+              <div class="content"><Html raw={cell.getContent() || ''} /></div>
             </td>
           {:else if cell.getStyle() === 'literal'}
             <td {...cellProps(cell)}>
               <div class="literal">
-                <pre>{@html cell.getContent() || ''}</pre>
+                <pre><Html raw={cell.getContent() || ''} /></pre>
               </div>
             </td>
           {:else if cell.getStyle() === 'header'}
             <th {...cellProps(cell)}>
-              <p class="tableblock">{@html cell.getContent() || ''}</p>
+              <p class="tableblock"><Html raw={cell.getContent() || ''} /></p>
             </th>
           {:else}
             <td {...cellProps(cell)}>
@@ -137,11 +138,11 @@
         {#each row as cell}
           <td class={getCellClass(cell)}>
             <p class="tableblock">
-              {@html cell.getText()}
+              <Html raw={cell.getText()} />
             </p>
           </td>
         {/each}
       </tr>
     </tfoot>
   {/each}
-</node>
+</table>

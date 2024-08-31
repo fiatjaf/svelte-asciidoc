@@ -57,6 +57,22 @@ with more text and super^script^?
 
 CAUTION: we can~maybe~ even *have* \`formatting\` in admonition blocks
 
+== tables
+
+[cols="1,1"]
+|===
+|Cell in column 1, header row |Cell in column 2, header row
+
+|Cell in column 1, row 2
+|Cell in column 2, row 2
+
+|something
+d|whatever
+
+a| link:nostr:npub1abc[this should be a red ugly mess]
+a| **cra**zy \`content\` _allowed!_
+|===
+
 == now other stuff
 
 === description list
