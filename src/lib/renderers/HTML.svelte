@@ -17,11 +17,27 @@
     }
     return attr
   }
+
+  const ure = /&gt;|&lt;|&amp;/g
+  function unescape(text: string): string {
+    return text.replace(ure, (v: string, ..._: any) => {
+      switch (v) {
+        case '&lt;':
+          return '<'
+        case '&gt;':
+          return '>'
+        case '&amp;':
+          return '&'
+        default:
+          return v
+      }
+    })
+  }
 </script>
 
 {#each ast as node}
   {#if node.type === 'Text'}
-    {node.value}
+    {unescape(node.value)}
   {:else if node.type === 'Tag'}
     {#if node.name in overrides}
       <svelte:component

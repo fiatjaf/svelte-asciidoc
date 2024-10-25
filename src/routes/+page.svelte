@@ -26,6 +26,7 @@ this is text!footnote:[and this is footnote]
 * seems to be working
 ** with nested lists
 * _italic_ and *bold*
+** and \`/<monospace>\`
 
 [sidebar]
 we have simple sidebar line
