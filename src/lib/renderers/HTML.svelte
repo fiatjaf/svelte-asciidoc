@@ -18,7 +18,7 @@
     return attr
   }
 
-  const ure = /&gt;|&lt;|&amp;/g
+  const ure = /&gt;|&lt;|&amp;|&#8217;|&#8230;&#8203;/g
   function unescape(text: string): string {
     return text.replace(ure, (v: string, ..._: any) => {
       switch (v) {
@@ -28,6 +28,10 @@
           return '>'
         case '&amp;':
           return '&'
+        case '&#8217;':
+          return "'"
+        case '&#8230;&#8203;':
+          return '…'
         default:
           return v
       }
