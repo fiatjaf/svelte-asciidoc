@@ -21,7 +21,7 @@
     source={`
 = hello
 
-this is text!footnote:[and this is footnote] ~ x'x ... x"x
+this is text!footnote:[and this is footnote] ~
 
 * seems to be working
 ** with nested lists
