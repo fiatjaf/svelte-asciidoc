@@ -5,7 +5,11 @@
   import Block from '../Block.svelte'
   import Title from './Title.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock;
+  }
+
+  let { node }: Props = $props();
 
   const style = node.getStyle()
 </script>

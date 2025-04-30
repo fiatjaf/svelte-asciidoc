@@ -2,7 +2,11 @@
   import {type AbstractBlock} from '@asciidoctor/core'
   import Html from './HTML.svelte'
 
-  export let node: AbstractBlock
+  interface Props {
+    node: AbstractBlock;
+  }
+
+  let { node }: Props = $props();
 </script>
 
 <div class="title">

@@ -4,7 +4,11 @@
   import {getLineNumber, getRole} from '../utils'
   import CaptionedTitle from './CaptionedTitle.svelte'
 
-  export let node: Block
+  export interface Props {
+    node: Block
+  }
+
+  let {node}: Props = $props()
 
   const target = node.getAttribute('target')
 </script>

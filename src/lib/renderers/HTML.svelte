@@ -1,8 +1,13 @@
 <script lang="ts">
+  import HTML from './HTML.svelte'
   import {type INode, type ITag, parse} from 'html5parser'
   import {getNaturalRenderers} from '../'
 
-  export let raw: string | undefined | INode[]
+  interface Props {
+    raw: string | undefined | INode[]
+  }
+
+  let {raw}: Props = $props()
 
   const ast = Array.isArray(raw) ? raw : parse(raw || '')
   const overrides = getNaturalRenderers()
@@ -46,14 +51,13 @@
     {unescape(node.value)}
   {:else if node.type === 'Tag'}
     {#if node.name in overrides}
-      <svelte:component
-        this={overrides[node.name]}
-        attrs={gatherAttributes(node)}
-        ><svelte:self raw={node.body} /></svelte:component
+      {@const Component = overrides[node.name]}
+      <Component attrs={gatherAttributes(node)}
+        ><HTML raw={node.body as any} /></Component
       >
     {:else}
       <svelte:element this={node.name} {...gatherAttributes(node)}
-        ><svelte:self raw={node.body} /></svelte:element
+        ><HTML raw={node.body as any} /></svelte:element
       >
     {/if}
   {/if}

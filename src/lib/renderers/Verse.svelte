@@ -5,7 +5,11 @@
   import Html from './HTML.svelte'
   import Title from './Title.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock;
+  }
+
+  let { node }: Props = $props();
 
   const attribution = node.getAttribute('attribution')
   const citetitle = node.getAttribute('citetitle')

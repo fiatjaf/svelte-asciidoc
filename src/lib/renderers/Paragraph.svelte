@@ -5,7 +5,11 @@
   import Html from './HTML.svelte'
   import Title from './Title.svelte'
 
-  export let node: Block
+  export interface Props {
+    node: Block
+  }
+
+  let {node}: Props = $props()
 </script>
 
 <div

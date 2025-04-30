@@ -4,7 +4,11 @@
   import {getLineNumber} from '../utils'
   import CaptionedTitle from './CaptionedTitle.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock
+  }
+
+  let {node}: Props = $props()
   const document = node.getDocument()
   const lang = node.getAttributes()?.language
   const nowrap = node.isOption('nowrap') || !document.hasAttribute('prewrap')

@@ -5,10 +5,15 @@
   import SectionTitle from './SectionTitle.svelte'
   import Block from '../Block.svelte'
 
-  export let node: Section
+  export interface Props {
+    node: Section
+  }
+
+  let {node}: Props = $props()
 
   const level = node.getLevel()
 
+  // svelte-ignore non_reactive_update
   let sectNum = node.getSectionNumeral()
   sectNum = sectNum === '.' ? '' : sectNum
 </script>

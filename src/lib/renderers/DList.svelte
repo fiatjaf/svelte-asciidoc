@@ -6,7 +6,11 @@
   import Block from '../Block.svelte'
   import CaptionedTitle from './CaptionedTitle.svelte'
 
-  export let node: List
+  export interface Props {
+    node: List
+  }
+
+  let {node}: Props = $props()
 
   const style = node.getStyle()
   const itempairs = node.getItems() as any as [
@@ -16,11 +20,13 @@
     }
   ][]
 
+  // svelte-ignore non_reactive_update
   let labelWidth = node.getAttribute('labelwidth')
   labelWidth = labelWidth
     ? (labelWidth = `${labelWidth.replace('%', '')}%`)
     : ''
 
+  // svelte-ignore non_reactive_update
   let itemWidth = node.getAttribute('itemwidth')
   itemWidth = itemWidth ? `${itemWidth.replace('%', '')}%` : ''
 </script>

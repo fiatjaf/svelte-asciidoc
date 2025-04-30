@@ -4,7 +4,11 @@
   import {getLineNumber, getRole} from '../utils'
   import Html from './HTML.svelte'
 
-  export let node: Table
+  export interface Props {
+    node: Table
+  }
+
+  let {node}: Props = $props()
 
   const classes = [
     'frame-' + node.getAttribute('frame', 'all', 'node-frame'),
@@ -19,7 +23,7 @@
 
   const autowidth = node.hasAutowidthOption()
   const tablewidth = node.getAttribute('tablepcwidth')
-  let width: string | null = null
+  let width: string | null = $state(null)
 
   if (autowidth && !node.hasAttribute('width')) {
     classes.push('fit-content')
@@ -77,7 +81,7 @@
   {#if node.hasTitle()}
     <caption class="title">
       {#if !id}
-        <!-- svelte-ignore a11y-missing-content -->
+        <!-- svelte-ignore a11y_missing_content, a11y_consider_explicit_label, a11y_missing_attribute -->
         <a class="anchor" id={slug}></a>
       {/if}
       <a href={`#${slug}`}>{node.getCaptionedTitle()}</a>

@@ -6,7 +6,11 @@
   import CaptionedTitle from './CaptionedTitle.svelte'
   import Html from './HTML.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock
+  }
+
+  let {node}: Props = $props()
 
   const isCollapsible = node.isOption('collapsible')
   const title = node.getTitle() || 'Details'

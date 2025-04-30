@@ -6,7 +6,11 @@
   import Html from './HTML.svelte'
   import Block from '../Block.svelte'
 
-  export let node: List
+  export interface Props {
+    node: List;
+  }
+
+  let { node }: Props = $props();
 
   const isChecklist = node.isOption('checklist')
 </script>
@@ -25,7 +29,7 @@
             {#if item.hasAttribute('checkbox')}
               <i
                 class={`fa ${item.hasAttribute('checked') ? 'fa-check-square-o' : 'fa-square-o'}`}
-              />
+></i>
             {/if}
             {' '}
             <Html raw={item.getText()} />

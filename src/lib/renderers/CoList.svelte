@@ -6,7 +6,11 @@
   import Block from '../Block.svelte'
   import Title from './Title.svelte'
 
-  export let node: List
+  export interface Props {
+    node: List
+  }
+
+  let {node}: Props = $props()
 </script>
 
 <div class="colist" {...getLineNumber(node)}>
@@ -16,7 +20,7 @@
       {#each node.getItems() as item, index}
         <tr>
           <td>
-            <i class="conum" data-value={index + 1} />
+            <i class="conum" data-value={index + 1}></i>
             <b>{index + 1}</b>
           </td>
           <td>

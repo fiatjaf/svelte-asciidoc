@@ -4,7 +4,11 @@
   import {getLineNumber, getRole} from '../utils'
   import Html from './HTML.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock
+  }
+
+  let {node}: Props = $props()
 
   const level = node.getLevel()
 </script>

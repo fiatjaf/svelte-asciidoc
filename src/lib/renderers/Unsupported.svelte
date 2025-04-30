@@ -1,7 +1,11 @@
 <script lang="ts">
   import {type AbstractBlock} from '@asciidoctor/core'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock;
+  }
+
+  let { node }: Props = $props();
 </script>
 
 <div class="unsupported">

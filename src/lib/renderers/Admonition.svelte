@@ -5,7 +5,11 @@
   import Html from './HTML.svelte'
   import Title from './Title.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock
+  }
+
+  let {node}: Props = $props()
 
   const attrs = node.getAttributes()
   const doc = node.getDocument()
@@ -19,7 +23,7 @@
         <td class="icon">
           {#if doc.hasAttribute('icons')}
             {#if doc.getAttribute('icons') === 'font' && !attrs.icon}
-              <i class={`fa icon-${attrs.name}`} title={attrs.textlabel} />
+              <i class={`fa icon-${attrs.name}`} title={attrs.textlabel}></i>
             {:else}
               <img src={node.getIconUri(attrs.name)} alt={attrs.textlabel} />
             {/if}

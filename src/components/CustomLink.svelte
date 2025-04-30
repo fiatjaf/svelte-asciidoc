@@ -1,17 +1,22 @@
 <script lang="ts">
   import {getExtra} from '../lib/'
 
-  export let attrs: {[_: string]: string}
+  interface Props {
+    attrs: {[_: string]: string};
+    children?: import('svelte').Snippet;
+  }
+
+  let { attrs, children }: Props = $props();
 
   const extra = getExtra()
 </script>
 
 {#if attrs.href.startsWith('nostr:')}
   <span style="background: red">
-    [START NOSTR LINK with extra {extra}]<a href={attrs.href}><slot /></a>[END
+    [START NOSTR LINK with extra {extra}]<a href={attrs.href}>{@render children?.()}</a>[END
     NOSTR]
   </span>
 {:else}
-  <!-- svelte-ignore a11y-missing-attribute -->
-  <a {...attrs}><slot /></a>
+  <!-- svelte-ignore a11y_missing_attribute -->
+  <a {...attrs}>{@render children?.()}</a>
 {/if}

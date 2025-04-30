@@ -6,7 +6,11 @@
   import Html from './HTML.svelte'
   import Block from '../Block.svelte'
 
-  export let node: List
+  export interface Props {
+    node: List
+  }
+
+  let {node}: Props = $props()
 </script>
 
 <div

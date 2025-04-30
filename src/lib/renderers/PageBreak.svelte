@@ -1,5 +1,9 @@
 <script lang="ts">
-  export let node: any
+  export interface Props {
+    node: any
+  }
+
+  let {node = $bindable()}: Props = $props()
   node.noop = 3
 </script>
 

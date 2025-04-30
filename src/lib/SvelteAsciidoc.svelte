@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { run } from 'svelte/legacy';
+
   import {createEventDispatcher} from 'svelte'
   import asciidoctor, {type Document} from '@asciidoctor/core'
 
@@ -8,11 +10,21 @@
   import type {Renderers, NaturalRenderers} from './renderers'
   import {setCustomRenderers, setNaturalRenderers, setExtra} from './'
 
-  export let source: string
-  export let extra: any = null
-  export let customRenderers: Partial<Renderers> = {}
-  export let naturalRenderers: NaturalRenderers = {}
-  export let supportMarkdownTransition = false
+  interface Props {
+    source: string;
+    extra?: any;
+    customRenderers?: Partial<Renderers>;
+    naturalRenderers?: NaturalRenderers;
+    supportMarkdownTransition?: boolean;
+  }
+
+  let {
+    source,
+    extra = null,
+    customRenderers = {},
+    naturalRenderers = {},
+    supportMarkdownTransition = false
+  }: Props = $props();
 
   setCustomRenderers(customRenderers)
   setNaturalRenderers(naturalRenderers)
@@ -20,31 +32,31 @@
 
   const dispatch = createEventDispatcher()
 
-  let doc: Document
+  let doc: Document = $state()
 
-  $: {
+  run(() => {
     const Asciidoctor = asciidoctor()
     ;(Asciidoctor as any).Compliance.markdown_syntax = supportMarkdownTransition
     doc = Asciidoctor.load(source)
     dispatch('parsed', doc)
-  }
+  });
 
-  $: blocks = doc.getBlocks()
-  $: footnotes = doc.getFootnotes()
-  $: nofootnotes =
-    blocks.length > 0 && blocks[0].getDocument().hasAttribute('nofootnotes')
-  $: noheader = doc.getNoheader()
-  $: hasheader = doc.hasHeader()
-  $: toc =
-    doc.hasSections() &&
+  let blocks = $derived(doc.getBlocks())
+  let footnotes = $derived(doc.getFootnotes())
+  let nofootnotes =
+    $derived(blocks.length > 0 && blocks[0].getDocument().hasAttribute('nofootnotes'))
+  let noheader = $derived(doc.getNoheader())
+  let hasheader = $derived(doc.hasHeader())
+  let toc =
+    $derived(doc.hasSections() &&
     doc.hasAttribute('toc') &&
-    doc.getAttribute('toc-placement') === 'auto'
-  $: authors = doc.getAuthors()
-  $: detail =
-    authors.length > 0 ||
+    doc.getAttribute('toc-placement') === 'auto')
+  let authors = $derived(doc.getAuthors())
+  let detail =
+    $derived(authors.length > 0 ||
     doc.hasAttribute('revnumber') ||
     doc.hasAttribute('revdate') ||
-    doc.hasAttribute('revremark')
+    doc.hasAttribute('revremark'))
 </script>
 
 {#if !noheader}

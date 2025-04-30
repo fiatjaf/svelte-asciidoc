@@ -3,16 +3,20 @@
 
   import {getLineNumber} from '../utils'
 
-  export let node: Section
-  export let level: number
-  export let sectNum: string
+  interface Props {
+    node: Section;
+    level: number;
+    sectNum: string;
+  }
+
+  let { node, level, sectNum }: Props = $props();
 
   const docAttrs = node.getDocument().getAttributes()
   const sectNumLevels = docAttrs['sectnumlevels']
     ? parseInt(docAttrs['sectnumlevels'])
     : 3
 
-  let title: string
+  let title: string = $state()
   if (node.getCaption()) {
     title = node.getCaptionedTitle()
   } else if (node.isNumbered() && level <= sectNumLevels) {
@@ -37,8 +41,8 @@
 </script>
 
 {#if docAttrs.sectlinks}
-  <!-- svelte-ignore a11y-missing-content -->
-  <a class="anchor" id={node.getId() || ''} {...getLineNumber(node)} />
+  <!-- svelte-ignore a11y_missing_content -->
+  <a class="anchor" id={node.getId() || ''} {...getLineNumber(node)}></a>
   <a class="link" href={`#${node.getId()}`}>{@html title}</a>
 {:else}
   {title}

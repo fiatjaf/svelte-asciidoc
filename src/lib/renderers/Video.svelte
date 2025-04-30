@@ -4,7 +4,11 @@
   import {getLineNumber} from '../utils'
   import Title from './Title.svelte'
 
-  export let node: AbstractBlock
+  export interface Props {
+    node: AbstractBlock
+  }
+
+  let {node}: Props = $props()
 
   const startTime = node.getAttribute('start')
   const endTime = node.getAttribute('start')
@@ -19,7 +23,7 @@
 <div class="videoblock" {...getLineNumber(node)}>
   <Title {node} />
   <div class="content">
-    <!-- svelte-ignore a11y-media-has-caption -->
+    <!-- svelte-ignore a11y_media_has_caption -->
     <video
       src={`${node.getMediaUri(node.getAttribute('target'))}${timeAnchor}`}
       autoPlay={node.isOption('autoplay')}

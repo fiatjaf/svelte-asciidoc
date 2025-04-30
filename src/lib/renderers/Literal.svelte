@@ -4,7 +4,11 @@
   import {getLineNumber} from '../utils'
   import Title from './Title.svelte'
 
-  export let node: Block
+  export interface Props {
+    node: Block
+  }
+
+  let {node}: Props = $props()
   const docAttrs = node.getDocument().getAttributes()
   const nowrap = docAttrs['prewrap'] === undefined || node.isOption('nowrap')
 </script>
