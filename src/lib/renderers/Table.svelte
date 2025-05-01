@@ -23,7 +23,7 @@
 
   const autowidth = node.hasAutowidthOption()
   const tablewidth = node.getAttribute('tablepcwidth')
-  let width: string | null = $state(null)
+  let width = $state<string | null>(null)
 
   if (autowidth && !node.hasAttribute('width')) {
     classes.push('fit-content')

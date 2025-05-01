@@ -4,19 +4,19 @@
   import {getLineNumber} from '../utils'
 
   interface Props {
-    node: Section;
-    level: number;
-    sectNum: string;
+    node: Section
+    level: number
+    sectNum: string
   }
 
-  let { node, level, sectNum }: Props = $props();
+  let {node, level, sectNum}: Props = $props()
 
   const docAttrs = node.getDocument().getAttributes()
   const sectNumLevels = docAttrs['sectnumlevels']
     ? parseInt(docAttrs['sectnumlevels'])
     : 3
 
-  let title: string = $state()
+  let title = $state<string>()
   if (node.getCaption()) {
     title = node.getCaptionedTitle()
   } else if (node.isNumbered() && level <= sectNumLevels) {
