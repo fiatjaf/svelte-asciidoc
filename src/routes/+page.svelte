@@ -16,12 +16,12 @@
   <h1>svelte-asciidoc testing area</h1>
 
   <SvelteAsciidoc
-    naturalRenderers={{a: CustomLink}}
+    naturalRenderers={{a: CustomLink as any}}
     extra={837}
     source={`
 = hello
 
-this is text!footnote:[and this is footnote] ~
+this is text!footnote:[and this is footnote] ~ -- <>
 
 * seems to be working
 ** with nested lists

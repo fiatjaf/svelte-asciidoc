@@ -2,6 +2,7 @@
   import {type Section} from '@asciidoctor/core'
 
   import {getLineNumber} from '../utils'
+  import Html from './HTML.svelte'
 
   interface Props {
     node: Section
@@ -43,7 +44,7 @@
 {#if docAttrs.sectlinks}
   <!-- svelte-ignore a11y_missing_content -->
   <a class="anchor" id={node.getId() || ''} {...getLineNumber(node)}></a>
-  <a class="link" href={`#${node.getId()}`}>{@html title}</a>
+  <a class="link" href={`#${node.getId()}`}><Html raw={title} /></a>
 {:else}
   {title}
 {/if}
